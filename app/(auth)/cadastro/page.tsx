@@ -1,4 +1,4 @@
-import { AuthForm } from '@/components/auth/auth-form';
+import { AuthRegisterForm } from '@/components/auth';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import Link from 'next/link';
 
@@ -12,7 +12,7 @@ export default async function RegisterPage() {
         </CardHeader>
 
         <CardContent>
-          <AuthForm />
+          <AuthRegisterForm />
         </CardContent>
       </Card>
 

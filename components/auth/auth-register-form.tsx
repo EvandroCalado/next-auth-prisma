@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
-export const AuthForm = () => {
+export const AuthRegisterForm = () => {
   const [state, formAction, isPending] = useActionState(registerAction, null);
 
   return (

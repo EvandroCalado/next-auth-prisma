@@ -12,7 +12,7 @@ type FormDataProps = {
 export const registerAction = async (prevState: unknown, data: FormData) => {
   const entries = Object.fromEntries(data) as FormDataProps;
 
-  //   verificar se os campos estão preenchidos
+  // verificar se os campos estão preenchidos
   if (!entries.name || !entries.email || !entries.password) {
     return {
       message: 'Preencha todos os campos!',
@@ -38,7 +38,7 @@ export const registerAction = async (prevState: unknown, data: FormData) => {
     };
   }
 
-  //   criar usuário no banco de dados
+  // criar usuário no banco de dados
   await db.user.create({
     data: {
       name: entries.name,
