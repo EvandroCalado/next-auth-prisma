@@ -9,13 +9,20 @@ type FormDataProps = {
   password: string;
 };
 
-export const registerAction = async (data: FormData) => {
+export const registerAction = async (prevState: unknown, data: FormData) => {
   const entries = Object.fromEntries(data) as FormDataProps;
 
   //   verificar se os campos estão preenchidos
   if (!entries.name || !entries.email || !entries.password) {
-    throw new Error('Preencha todos os campos!');
+    return {
+      message: 'Preencha todos os campos!',
+      success: false,
+    };
   }
+
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  await sleep(2000);
 
   // verificar se usuário já existe no banco de dados
   const user = await db.user.findUnique({
@@ -25,7 +32,10 @@ export const registerAction = async (data: FormData) => {
   });
 
   if (user) {
-    throw new Error('Usuário ja cadastrado!');
+    return {
+      message: 'Usuário ja cadastrado',
+      success: false,
+    };
   }
 
   //   criar usuário no banco de dados

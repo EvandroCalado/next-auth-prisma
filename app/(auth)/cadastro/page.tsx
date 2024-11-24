@@ -1,10 +1,6 @@
-import { Button } from '@/components/ui/button';
+import { AuthForm } from '@/components/auth/auth-form';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Form from 'next/form';
 import Link from 'next/link';
-import { registerAction } from './register-action';
 
 export default async function RegisterPage() {
   return (
@@ -14,43 +10,12 @@ export default async function RegisterPage() {
           <h2 className='text-xl font-bold'>Cadastre-se</h2>
           <CardDescription>Faça seu cadastro gratuitamente.</CardDescription>
         </CardHeader>
+
         <CardContent>
-          <Form action={registerAction}>
-            <div>
-              <Label>Nome</Label>
-              <Input
-                type='text'
-                name='name'
-                placeholder='Fulano de Tal'
-              />
-            </div>
-            <div>
-              <Label>Email</Label>
-              <Input
-                type='email'
-                name='email'
-                placeholder='eu@exemplo.com'
-              />
-            </div>
-            <div>
-              <Label>Senha</Label>
-              <Input
-                type='password'
-                name='password'
-                placeholder='********'
-              />
-            </div>
-            <div>
-              <Button
-                className='w-full mt-6'
-                type='submit'
-              >
-                Registrar
-              </Button>
-            </div>
-          </Form>
+          <AuthForm />
         </CardContent>
       </Card>
+
       <p className='text-sm text-muted-foreground mt-3'>
         Já possui cadastro?{' '}
         <Link
