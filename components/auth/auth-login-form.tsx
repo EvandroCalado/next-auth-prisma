@@ -29,7 +29,7 @@ export const AuthLoginForm = () => {
           <Input type="password" name="password" placeholder="********" />
         </div>
         <Button className="w-full mt-6" type="submit" disabled={isPending}>
-          <span>{isPending ? "Registrando..." : "Registrar"}</span>
+          <span>{isPending ? "Carregando..." : "Entrar"}</span>
         </Button>
       </Form>
     </>

@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { AuthLoginForm } from "@/components/auth";
 import {
   Card,
@@ -6,8 +7,15 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function LoginPage() {
+  const session = await auth();
+
+  if (session) {
+    return redirect("/dashboard");
+  }
+
   return (
     <>
       <Card className="max-w-sm w-full rounded-2xl mt-12">

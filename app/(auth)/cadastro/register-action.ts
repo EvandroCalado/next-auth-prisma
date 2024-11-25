@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { hashSync } from "bcrypt-ts";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 type FormDataProps = {
@@ -13,7 +14,6 @@ type FormDataProps = {
 export const registerAction = async (_prevState: unknown, data: FormData) => {
   const entries = Object.fromEntries(data) as FormDataProps;
 
-  // verificar se os campos estão preenchidos
   const parsedCredentials = z
     .object({
       name: z.string(),
@@ -29,7 +29,6 @@ export const registerAction = async (_prevState: unknown, data: FormData) => {
     };
   }
 
-  // verificar se usuário já existe no banco de dados
   const user = await db.user.findUnique({
     where: {
       email: entries.email,
@@ -43,7 +42,6 @@ export const registerAction = async (_prevState: unknown, data: FormData) => {
     };
   }
 
-  // criar usuário no banco de dados
   await db.user.create({
     data: {
       name: entries.name,
@@ -51,4 +49,6 @@ export const registerAction = async (_prevState: unknown, data: FormData) => {
       password: hashSync(entries.password),
     },
   });
+
+  return redirect("/dashboard");
 };

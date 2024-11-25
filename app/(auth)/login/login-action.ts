@@ -8,7 +8,8 @@ export const loginAction = async (_prevState: unknown, data: FormData) => {
     await signIn("credentials", {
       email: data.get("email") as string,
       password: data.get("password") as string,
-      redirect: false,
+      redirect: true,
+      redirectTo: "/dashboard",
     });
 
     return {
