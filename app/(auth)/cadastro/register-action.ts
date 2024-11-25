@@ -1,7 +1,8 @@
-'use server';
+"use server";
 
-import { db } from '@/lib/db';
-import { hashSync } from 'bcrypt-ts';
+import { db } from "@/lib/db";
+import { hashSync } from "bcrypt-ts";
+import { z } from "zod";
 
 type FormDataProps = {
   name: string;
@@ -9,20 +10,24 @@ type FormDataProps = {
   password: string;
 };
 
-export const registerAction = async (prevState: unknown, data: FormData) => {
+export const registerAction = async (_prevState: unknown, data: FormData) => {
   const entries = Object.fromEntries(data) as FormDataProps;
 
   // verificar se os campos estão preenchidos
-  if (!entries.name || !entries.email || !entries.password) {
+  const parsedCredentials = z
+    .object({
+      name: z.string(),
+      email: z.string().email(),
+      password: z.string(),
+    })
+    .safeParse(entries);
+
+  if (!parsedCredentials.success) {
     return {
-      message: 'Preencha todos os campos!',
+      message: "Campos obrigatórios !",
       success: false,
     };
   }
-
-  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-  await sleep(2000);
 
   // verificar se usuário já existe no banco de dados
   const user = await db.user.findUnique({
@@ -33,7 +38,7 @@ export const registerAction = async (prevState: unknown, data: FormData) => {
 
   if (user) {
     return {
-      message: 'Usuário ja cadastrado',
+      message: "Usuário ja cadastrado",
       success: false,
     };
   }
