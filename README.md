@@ -4,30 +4,10 @@ Este é um boilerplate completo para autenticação em aplicações Next.js, uti
 
 ## 🚀 Funcionalidades
 
-- Autenticação completa com suporte a credenciais, provedores OAuth (Google, GitHub, etc.).
+- Autenticação completa com suporte a credenciais.
 - Banco de dados MySQL configurado para persistência de usuários e sessões.
 - Integração com Prisma para manipulação e consultas ao banco de dados.
 - Ambiente isolado com Docker Compose para fácil configuração e deploy.
-
----
-
-## 📂 Estrutura do Projeto
-
-```plaintext
-.
-├── prisma/                 # Configurações do Prisma e esquemas do banco
-│   ├── schema.prisma       # Arquivo de configuração do Prisma
-├── src/
-│   ├── pages/
-│   │   ├── api/
-│   │   │   └── auth/       # Rota da API para autenticação via Auth.js
-│   │   ├── index.tsx       # Página inicial (exemplo)
-│   └── styles/             # Estilos globais
-├── .env                    # Variáveis de ambiente
-├── docker-compose.yml      # Configuração do Docker Compose
-├── package.json            # Dependências do projeto
-└── README.md               # Documentação do projeto
-```
 
 ---
 
@@ -45,25 +25,29 @@ Este é um boilerplate completo para autenticação em aplicações Next.js, uti
 
 ### 1. Pré-requisitos
 
-- **Node.js** (v16 ou superior)
+- **Node.js** (v20 ou superior)
 - **Docker** e **Docker Compose**
-- **npm** ou **yarn**
+- **npm**, **yarn** ou **pnpm**
 
 ### 2. Clonar o repositório
 
 ```bash
-git clone <url-do-repositorio>
-cd <nome-do-repositorio>
+git clone https://github.com/EvandroCalado/next-auth-prisma
+cd next-auth-prisma
 ```
 
 ### 3. Configurar variáveis de ambiente
 
-Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+Renomei o arquivo `.env.example` na raiz do projeto para .env:
 
-```env
-DATABASE_URL="mysql://root:password@localhost:3306/auth_db"
-NEXTAUTH_SECRET="sua-chave-secreta"
-NEXTAUTH_URL="http://localhost:3000"
+```.env
+DATABASE_URL="mysql://root:root@localhost:3306/next_auth"
+```
+
+Renomei o arquivo `.env.local.example` na raiz do projeto para .env.local e adicione um secret:
+
+```.env.local
+AUTH_SECRET="secret"
 ```
 
 ### 4. Subir o ambiente Docker
@@ -80,6 +64,8 @@ Sincronize o esquema do Prisma com o banco de dados:
 
 ```bash
 npx prisma db push
+# ou
+npx prisma migrate dev
 ```
 
 Opcionalmente, visualize os dados com o Prisma Studio:
@@ -94,8 +80,6 @@ Instale as dependências do projeto:
 
 ```bash
 npm install
-# ou
-yarn
 ```
 
 ### 7. Rodar o projeto
@@ -104,8 +88,6 @@ Inicie o servidor de desenvolvimento:
 
 ```bash
 npm run dev
-# ou
-yarn dev
 ```
 
 O projeto estará disponível em [http://localhost:3000](http://localhost:3000).
@@ -114,7 +96,7 @@ O projeto estará disponível em [http://localhost:3000](http://localhost:3000).
 
 ## ⚙️ Configuração de Autenticação
 
-Por padrão, o boilerplate está configurado para usar autenticação por credenciais. Você pode adicionar provedores OAuth (Google, GitHub, etc.) no arquivo `src/pages/api/auth/[...nextauth].ts`.
+Por padrão, o boilerplate está configurado para usar autenticação por credenciais. Você pode adicionar provedores OAuth (Google, GitHub, etc.) no arquivo `auth.ts` na raíz do projeto.
 
 Exemplo de configuração com Google:
 
@@ -123,8 +105,8 @@ import GoogleProvider from "next-auth/providers/google";
 
 providers: [
   GoogleProvider({
-    clientId: process.env.GOOGLE_CLIENT_ID!,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   }),
 ],
 ```
