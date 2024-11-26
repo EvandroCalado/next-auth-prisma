@@ -1,76 +1,153 @@
-# Autenticação com NextAuth, Prisma e Next.js 15
+# Next.js Authentication Boilerplate
 
-Neste mini projeto, você irá implementar a autenticação em um hipotético SaaS de Livros de Programação. Usaremos o NextAuth para gerenciar a autenticação e o Prisma para a interação com o banco de dados, enquanto nosso frameworks será o Next.js 15. O design já está preparado, e o foco será na implementação das funcionalidades sem a necessidade de modificar muito o HTML e o CSS.
+Este é um boilerplate completo para autenticação em aplicações Next.js, utilizando **Auth.js** (antigo NextAuth.js) para gerenciamento de autenticação, **Prisma** para comunicação com banco de dados e **MySQL** rodando em um container via **Docker Compose**.
 
-## 🤓 Antes de começar
+## 🚀 Funcionalidades
 
-Para este projeto, já temos o template inicial do projeto preparado no repositório. Ao fazer o fork você encontrará todos os arquivos iniciais. 
+- Autenticação completa com suporte a credenciais, provedores OAuth (Google, GitHub, etc.).
+- Banco de dados MySQL configurado para persistência de usuários e sessões.
+- Integração com Prisma para manipulação e consultas ao banco de dados.
+- Ambiente isolado com Docker Compose para fácil configuração e deploy.
 
-Apesar de, na Dashboard, existir citação à assinaturas, não é necessário se preocupar com assinaturas e pagamentos nesse Mini Projeto. O foco aqui é autenticação. 
+---
 
-## 🔨 Requisitos
+## 📂 Estrutura do Projeto
 
-- **Faça a instalação e o setup do NextAuth v5 (a última versão é importante).**
-  - O único provedor que você irá usar neste Mini Projeto é o `Credentials` (login com email e senha). 
+```plaintext
+.
+├── prisma/                 # Configurações do Prisma e esquemas do banco
+│   ├── schema.prisma       # Arquivo de configuração do Prisma
+├── src/
+│   ├── pages/
+│   │   ├── api/
+│   │   │   └── auth/       # Rota da API para autenticação via Auth.js
+│   │   ├── index.tsx       # Página inicial (exemplo)
+│   └── styles/             # Estilos globais
+├── .env                    # Variáveis de ambiente
+├── docker-compose.yml      # Configuração do Docker Compose
+├── package.json            # Dependências do projeto
+└── README.md               # Documentação do projeto
+```
 
-- **Crie e gerencie sua base de dados (sqlite, mysql ou postgres) usando o Prisma**
-  - Você precisará, pelo menos, de uma tabela de usuários
-	
-    > 👀 **Dicas:**
-    > - Consulte a documentação do NextAuth para entender como configurar o Prisma em conjunto com NextAuth.
+---
 
-- **Funcionalidade de registrar usuários usando a tela de cadastro**
-  - Use, na medida do possível, _server actions_.
-  - Um usuário deverá possuir _nome_, _email_ e _senha_.
-  - A senha deverá ser criptografada antes de ser salva na base de dados.
-  - A tela de cadastro não pode ser acessível a usuários logados (redirecione ao dashboard)
+## 🛠️ Tecnologias Utilizadas
 
-      > 👀 **Dicas:**
-      > - O NextAuth auxilia apenas no login do usuário - a implementação do cadastro de usuário deverá ser feita por você.
+- **Next.js**: Framework React para renderização no lado do servidor.
+- **Auth.js**: Biblioteca para autenticação.
+- **Prisma**: ORM para comunicação com o banco de dados.
+- **MySQL**: Banco de dados relacional.
+- **Docker Compose**: Gerenciamento de containers para fácil configuração.
 
-- **Funcionalidade de logar usuários usando a tela de login**
-  - Use, na medida do possível, _server actions_.
-  - Ao logar, redirecione o usuário para a tela de dashboard.
-  - A tela de login não pode ser acessível a usuários logados (redirecione ao dashboard)
- 
-- **Funcionalidade de deslogar o usuário.**
+---
 
-- **Navegação e renderização condicional**
-  - Na home, quando o usuário estiver logado, o botão da Navbar deverá ser `Dashboard`. Quando o usuário estiver deslogado, o botão deverá ser `Login`.
-  - Um usuário deslogado não poderá acessar a Dashboard.
-  - Um usuário logado não poderá acessar as telas de login e cadastro. 
+## 🏗️ Configuração
 
-## 🔨 Desafio extra para quem quer ir além
+### 1. Pré-requisitos
 
-- Implemente uma página de perfil onde o usuário poderá visualizar e editar suas informações como _nome_ e _senha_. 
+- **Node.js** (v16 ou superior)
+- **Docker** e **Docker Compose**
+- **npm** ou **yarn**
 
-## 🎨 Design Sugerido
+### 2. Clonar o repositório
 
-O layout está no Figma e já está implementado no projeto. Você não precisará implementá-lo. 
+```bash
+git clone <url-do-repositorio>
+cd <nome-do-repositorio>
+```
 
-### Figma
+### 3. Configurar variáveis de ambiente
 
-🔗 [Link do design](https://www.figma.com/community/file/1431066927390390144/mini-projeto-saas-autenticacao-com-nextauth-prisma-e-next-js-15)
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
-## 👉🏽 Sobre esse mini-projeto
+```env
+DATABASE_URL="mysql://root:password@localhost:3306/auth_db"
+NEXTAUTH_SECRET="sua-chave-secreta"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
-### O que você irá praticar:
+### 4. Subir o ambiente Docker
 
-#### Next.js
+Inicie o banco de dados com o Docker Compose:
 
-- Conhecimentos sobre a configuração de páginas e rotas dinâmicas.
+```bash
+docker-compose up -d
+```
 
-#### NextAuth
+### 5. Configurar o Prisma
 
-- Aprender sobre autenticação em aplicações Next.js.
-- Integração do NextAuth com Prisma e base de dados. 
+Sincronize o esquema do Prisma com o banco de dados:
 
-#### Prisma
+```bash
+npx prisma db push
+```
 
-- Gerenciar banco de dados de forma eficiente e intuitiva.
-- Criação de modelos e migrações com Prisma.
+Opcionalmente, visualize os dados com o Prisma Studio:
 
+```bash
+npx prisma studio
+```
 
-### Pré requisitos
+### 6. Instalar dependências
 
-- Conhecimentos em JavaScript, React e NextJs.
+Instale as dependências do projeto:
+
+```bash
+npm install
+# ou
+yarn
+```
+
+### 7. Rodar o projeto
+
+Inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+# ou
+yarn dev
+```
+
+O projeto estará disponível em [http://localhost:3000](http://localhost:3000).
+
+---
+
+## ⚙️ Configuração de Autenticação
+
+Por padrão, o boilerplate está configurado para usar autenticação por credenciais. Você pode adicionar provedores OAuth (Google, GitHub, etc.) no arquivo `src/pages/api/auth/[...nextauth].ts`.
+
+Exemplo de configuração com Google:
+
+```typescript
+import GoogleProvider from "next-auth/providers/google";
+
+providers: [
+  GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+  }),
+],
+```
+
+Certifique-se de adicionar as variáveis de ambiente correspondentes no arquivo `.env`.
+
+---
+
+## 📖 Recursos Adicionais
+
+- **[Next.js Documentation](https://nextjs.org/docs)**
+- **[Auth.js Documentation](https://authjs.dev/)**
+- **[Prisma Documentation](https://www.prisma.io/docs)**
+- **[Docker Documentation](https://docs.docker.com/)**
+
+---
+
+## 🧑‍💻 Contribuição
+
+Sinta-se à vontade para abrir issues e enviar pull requests para melhorias neste boilerplate.
+
+---
+
+## 📝 Licença
+
+Este projeto é licenciado sob a [MIT License](./LICENSE).
