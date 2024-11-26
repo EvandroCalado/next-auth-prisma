@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background: url('./assets/noise.svg');
+  background: url("/noise.svg");
   background-color: rgba(0, 0, 0, 0.05);
 }
 

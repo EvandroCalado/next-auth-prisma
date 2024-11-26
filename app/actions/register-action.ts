@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/lib/db";
+import { db } from "@/lib";
 import { hashSync } from "bcrypt-ts";
 import { redirect } from "next/navigation";
 import { z } from "zod";

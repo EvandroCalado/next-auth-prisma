@@ -2,7 +2,7 @@ import { compareSync } from "bcrypt-ts";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import { db } from "./lib/db";
+import { db } from "./lib";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [

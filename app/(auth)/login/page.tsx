@@ -1,15 +1,9 @@
 import { auth } from "@/auth";
 import { AuthLoginForm } from "@/components/auth";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function LoginPage() {
+const LoginPage = async () => {
   const session = await auth();
 
   if (session) {
@@ -18,24 +12,21 @@ export default async function LoginPage() {
 
   return (
     <>
-      <Card className="max-w-sm w-full rounded-2xl mt-12">
-        <CardHeader>
-          <h2 className="text-xl font-bold">Boas Vindas</h2>
-          <CardDescription>Faça seu login com email e senha.</CardDescription>
-        </CardHeader>
+      <div className="w-full max-w-sm mt-12 rounded-2xl bg-white/10 backdrop-blur-sm border space-y-4 p-7">
+        <h2 className="text-xl font-bold">Boas Vindas</h2>
+        <p>Faça seu login com email e senha.</p>
 
-        <CardContent>
-          <AuthLoginForm />
-        </CardContent>
-      </Card>
+        <AuthLoginForm />
+      </div>
 
-      <p className="text-sm text-muted-foreground mt-3">
+      <p className="mt-3 text-sm text-muted-foreground">
         Não possui cadastro?{" "}
         <Link className="text-gray-800 hover:underline" href="/cadastro">
           Registre-se
         </Link>
-        .
       </p>
     </>
   );
-}
+};
+
+export default LoginPage;

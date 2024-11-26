@@ -1,9 +1,10 @@
 services:
   db:
+    container_name: next-auth-db
     image: mysql:8.0.40
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mydb
+      MYSQL_DATABASE: next_auth
     ports:
       - 3306:3306
     volumes:

@@ -1,15 +1,9 @@
 import { auth } from "@/auth";
 import { AuthRegisterForm } from "@/components/auth";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function RegisterPage() {
+const RegisterPage = async () => {
   const session = await auth();
 
   if (session) {
@@ -18,16 +12,12 @@ export default async function RegisterPage() {
 
   return (
     <>
-      <Card className="max-w-sm w-full rounded-2xl mt-12">
-        <CardHeader>
-          <h2 className="text-xl font-bold">Cadastre-se</h2>
-          <CardDescription>Faça seu cadastro gratuitamente.</CardDescription>
-        </CardHeader>
+      <div className="w-full max-w-sm mt-12 rounded-2xl bg-white/10 backdrop-blur-sm border space-y-4 p-7">
+        <h2 className="text-xl font-bold">Cadastre-se</h2>
+        <p>Faça seu cadastro gratuitamente.</p>
 
-        <CardContent>
-          <AuthRegisterForm />
-        </CardContent>
-      </Card>
+        <AuthRegisterForm />
+      </div>
 
       <p className="text-sm text-muted-foreground mt-3">
         Já possui cadastro?{" "}
@@ -38,4 +28,6 @@ export default async function RegisterPage() {
       </p>
     </>
   );
-}
+};
+
+export default RegisterPage;

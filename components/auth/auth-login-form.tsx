@@ -1,11 +1,9 @@
 "use client";
 
-import { loginAction } from "@/app/(auth)/login/login-action";
+import { loginAction } from "@/app/actions";
 import Form from "next/form";
 import { useActionState } from "react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { Button, Input, Label } from "../ui";
 
 export const AuthLoginForm = () => {
   const [state, formAction, isPending] = useActionState(loginAction, null);
@@ -13,7 +11,7 @@ export const AuthLoginForm = () => {
   return (
     <>
       {state?.success === false && (
-        <div className="bg-red-500 mb-2 rounded text-white flex items-center gap-2 p-4">
+        <div className="flex items-center gap-2 p-4 mb-2 text-white bg-red-500 rounded">
           <strong>Erro !</strong>
           <span>{state.message}</span>
         </div>

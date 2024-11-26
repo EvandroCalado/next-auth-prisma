@@ -1,18 +1,17 @@
-import { Toaster } from '@/components/ui/toaster';
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import './globals.css';
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
 
 const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
-  title: 'LivroSaas',
+  title: "Next Auth Prisma",
   description:
-    'Deixe que nós fazermos a curadoria para você. Assine nossa plataforma e receba todos os meses um ebook novo de programação.',
+    "Boiler plate Next.js + Prisma + NextAuth + TailwindCSS + TypeScript",
 };
 
 export default function RootLayout({
@@ -21,10 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='pt-BR'>
-      <body className={`${geistSans.variable}  antialiased`}>
+    <html lang="pt-BR">
+      <body
+        className={`${geistSans.variable} antialiased flex flex-col min-h-screen`}
+      >
         {children}
-        <Toaster />
       </body>
     </html>
   );
